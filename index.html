@@ -41,6 +41,7 @@
                        minlength="6" maxlength="12" 
                        pattern="(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,12}" 
                        required>
+                <button type="button" class="toggle-password" onclick="togglePasswordVisibility()">👁️</button>
             </div>
             <button class="btn" onclick="login()">
                 <span data-lang="en">Login</span>
@@ -225,25 +226,35 @@
 
     <!-- User Modal -->
     <div id="userModal" class="modal">
-        <div class="modal-content">
-            <span class="close-modal" onclick="closeUserModal()">&times;</span>
-            <h3 id="modalTitle">Add User</h3>
-            <form id="userForm" onsubmit="handleUserSubmit(event)">
-                <div class="input-group">
-                    <input type="text" id="userId" placeholder="User ID" required>
-                    <input type="text" id="userName" placeholder="Full Name" required>
-                    <select id="userRole" required>
-                        <option value="">Select Role</option>
-                        <option value="admin">Administrator</option>
-                        <option value="user">User</option>
-                        <option value="auditor">Auditor</option>
-                    </select>
-                    <input type="password" id="userPassword" placeholder="Password" required>
+    <div class="modal-content">
+        <span class="close-modal" onclick="closeUserModal()">&times;</span>
+        <h3 id="modalTitle">Add User</h3>
+        <form id="userForm" onsubmit="handleUserSubmit(event)">
+            <div class="input-group">
+                <!-- User ID with a max length of 10 characters -->
+                <input type="text" id="userId" placeholder="User ID" maxlength="10" required>
+                
+                <!-- Full Name with letter-only restriction -->
+                <input type="text" id="userName" placeholder="Full Name" maxlength="50" pattern="[A-Za-z\s]+" title="Only letters and spaces are allowed" required>
+                
+                <select id="userRole" required>
+                    <option value="">Select Role</option>
+                    <option value="admin">Administrator</option>
+                    <option value="user">User</option>
+                    <option value="auditor">Auditor</option>
+                </select>
+                
+                <!-- Password field with show/hide functionality -->
+                <div class="password-group">
+                    <input type="password" id="userPassword" placeholder="Password" maxlength="20" required>
+                    <button type="button" class="toggle-password" onclick="togglePasswordVisibility()">👁️</button>
                 </div>
-                <button type="submit" class="btn">Save</button>
-            </form>
-        </div>
+            </div>
+            <button type="submit" class="btn">Save</button>
+        </form>
     </div>
+</div>
+
 <!-- Metrics Screen -->
 <div id="metricsScreen" class="screen admin-container">
     <div class="card">
